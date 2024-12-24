@@ -2,7 +2,7 @@ package hexlet.code;
 
 class GameEven implements RunnableApp {
     public void run(Cli cli) {
-        //Приветствие перед игрой
+        // Приветствие перед игрой
         GameGreeting greeting = new GameGreeting();
         greeting.run(cli);
         String name = greeting.getName();
