@@ -2,11 +2,12 @@ package hexlet.code;
 
 class GameEven implements RunnableApp {
     public void run(Cli cli) {
-        // Приветствие и правила
-        String name = "";
-        System.out.println("Welcome to the Brain Games!");
-        name = cli.getAnswerStringOnLine("May I have your name? ");
-        System.out.println("Hello, " + name + "!");
+        //Приветствие перед игрой
+        GameGreeting greeting = new GameGreeting();
+        greeting.run(cli);
+        String name = greeting.getName();
+
+        // Показываем правила
         System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
 
         // Определяем переменные

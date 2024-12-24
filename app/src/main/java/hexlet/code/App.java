@@ -10,7 +10,7 @@ public class App {
     private static void go() {
         int code = 0;
         RunnableApp game = null;
-        
+
         Cli cli = new Cli(new Scanner(System.in));
         do {
             try {
@@ -20,6 +20,7 @@ public class App {
                 }
                 game = GameChoise.getGame(code);
                 System.out.println("");
+                // Запускаем выбранную игру
                 game.run(cli);
                 System.out.println("");
             } catch (RuntimeException e) {
