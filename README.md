@@ -4,3 +4,4 @@
 
 [Ссылка](https://asciinema.org/a/JT59JIvTwqU9W4VvVOfSDElY8) на аксинему игры Even.
 [Ссылка](https://asciinema.org/a/wykKs8GF51CJhWIgwhyMOjJJq) на аксинему игры Calc.
+[Ссылка](https://asciinema.org/a/K7jHW0WJEugiCZdOXLSUoVtf2) на аксинему игры GCD.
