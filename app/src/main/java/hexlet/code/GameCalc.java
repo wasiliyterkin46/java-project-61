@@ -49,7 +49,7 @@ public class GameCalc implements RunnableApp {
         } while (play && countCorrect < this.countWin);
 
         // Завершаем игру
-        if (countCorrect == 3) {
+        if (countCorrect == countWin) {
             System.out.println("Congratulations, " + name + "!");
         } else {
             System.out.println("Let's try again, " + name + "!");

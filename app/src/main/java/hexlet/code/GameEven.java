@@ -1,6 +1,9 @@
 package hexlet.code;
 
 class GameEven implements RunnableApp {
+    // Количество побед, до которых продолжается игра. Нужно для гибкости, если будет необходимость играть дольше/меньше
+    private int countWin = 3;
+
     public void run(Cli cli) {
         // Приветствие перед игрой
         GameGreeting greeting = new GameGreeting();
@@ -38,10 +41,10 @@ class GameEven implements RunnableApp {
                 result = answer.equals("yes") ? "'yes' is wrong answer ;(. Correct answer was 'no'." : "'no' is wrong answer ;(. Correct answer was 'yes'.";
                 play = false;
             }
-        } while (play && countCorrect < 3);
+        } while (play && countCorrect < countWin);
 
         // Завершаем игру
-        if (countCorrect == 3) {
+        if (countCorrect == countWin) {
             System.out.println("Congratulations, " + name + "!");
         } else {
             System.out.println(result);
