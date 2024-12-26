@@ -7,6 +7,7 @@ class GameChoise {
         builder.append("2 - Even\n");
         builder.append("3 - Calc\n");
         builder.append("4 - GCD\n");
+        builder.append("5 - Progression\n");
         builder.append("0 - Exit");
         System.out.println(builder.toString());
         int result = cli.getAnswerIntOnLine("Your choice:");
@@ -27,6 +28,9 @@ class GameChoise {
                 break;
             case 4:
                 result = new GameGcd();
+                break;
+            case 5:
+                result = new GameProgression();
                 break;
         }
 
