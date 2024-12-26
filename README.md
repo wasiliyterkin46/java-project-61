@@ -7,3 +7,4 @@
 - [Ссылка](https://asciinema.org/a/wykKs8GF51CJhWIgwhyMOjJJq) на аксинему игры Calc.
 - [Ссылка](https://asciinema.org/a/K7jHW0WJEugiCZdOXLSUoVtf2) на аксинему игры GCD.
 - [Ссылка](https://asciinema.org/a/WJdwKOWyD3g1qx1anW591TURM) на аксинему игры Progression.
+- [Ссылка](https://asciinema.org/a/pxLay8UJmeg6UQnd1vtJDDZ0n) на аксинему игры Prime.
