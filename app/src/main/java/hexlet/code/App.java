@@ -15,6 +15,9 @@ public class App {
         Cli cli = new Cli(new Scanner(System.in));
 
         try {
+            game = GameChoise.getGame(1);
+            game.run(cli);
+
             code = GameChoise.run(cli);
             if (code != 0) {
                 game = GameChoise.getGame(code);
