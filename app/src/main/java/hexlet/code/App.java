@@ -13,6 +13,28 @@ public class App {
         RunnableApp game = null;
 
         Cli cli = new Cli(new Scanner(System.in));
+
+        try {
+            code = GameChoise.run(cli);
+            if (code != 0) {
+                game = GameChoise.getGame(code);
+                System.out.println("");
+                // Запускаем выбранную игру
+                game.run(cli);
+            }
+        } catch (RuntimeException e) {
+            System.out.println("\nВы ввели некорректное значение!");
+        }
+
+
+        cli.closeScanner();
+    }
+
+    /*private static void go2() {
+        int code = 0;
+        RunnableApp game = null;
+
+        Cli cli = new Cli(new Scanner(System.in));
         do {
             try {
                 code = GameChoise.run(cli);
@@ -33,6 +55,6 @@ public class App {
 
         cli.closeScanner();
         System.out.println("\nСпасибо, что выбрали наши игры! До скорой встречи.");
-    }
+    }*/
 
 }
