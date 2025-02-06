@@ -1,22 +1,20 @@
-package hexlet.code;
+package hexlet.code.games;
 
 import java.util.Arrays;
+import java.util.Scanner;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 
-public class GamePrime implements RunnableApp {
+public class GamePrime {
     // Переменные класса
     // Количество побед, до которых продолжается игра
-    private int countWin = 3;
+    private static int countWin = 3;
     // Верхняя граница чисел
-    private int maxNum = 99;
+    private static int maxNum = 99;
 
-    @Override
-    public void run(Cli cli) {
-        // Приветствие перед игрой
-        GameGreeting greeting = new GameGreeting();
-        greeting.run(cli);
-        String name = greeting.getName();
+    public static void run(Scanner in, String name) {
+
         // Показываем правила
         System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
 
@@ -26,7 +24,7 @@ public class GamePrime implements RunnableApp {
         String answer = ""; // Ответ пользователя
         String result = ""; // Правильный ответ
         int number = 0; // Число для вопроса
-        int[] primeSpace = getPrimeSpace(this.maxNum);
+        int[] primeSpace = getPrimeSpace(maxNum);
         int[] cashAnswer = new int[countWin]; // Хранение заданных чисел, чтобы не повторялись
 
         // Игра
@@ -41,7 +39,8 @@ public class GamePrime implements RunnableApp {
             // Задаем вопрос
             System.out.println("Question: " + number);
             // Получаем ответ
-            answer = cli.getAnswerStringOnLine("Your answer: ").toLowerCase().trim();
+            System.out.print("Your answer: ");
+            answer = in.next().toLowerCase().trim();
             cashAnswer[countCorrect] = number;
             // Обрабатываем результат
             if (answer.equals(result)) {
@@ -51,7 +50,7 @@ public class GamePrime implements RunnableApp {
                 System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" + result + "'.");
                 play = false;
             }
-        } while (play && countCorrect < this.countWin);
+        } while (play && countCorrect < countWin);
 
         // Завершаем игру
         if (countCorrect == countWin) {
@@ -62,12 +61,12 @@ public class GamePrime implements RunnableApp {
     }
 
     // Возвращает случайное число в заданном диапазоне
-    private int getRandomNumber(int min, int max) {
+    private static int getRandomNumber(int min, int max) {
         return (int) (Math.random() * (max + 1 - min) + min);
     }
 
     // Возвращает массив простых чисел от 1 до указанного максимума
-    private int[] getPrimeSpace(int maxNum) {
+    private static int[] getPrimeSpace(int maxNum) {
         int[] result = new int[(int) maxNum / 2]; // Инициализируем массив длиной = максимум / 2, т.к. четные числа заведомо не будут простыми.
         // Двум первым элементам присваиваем простые числа 1 и 2
         result[0] = 1;
@@ -95,14 +94,14 @@ public class GamePrime implements RunnableApp {
     }
 
     // Возвращает сгенерированное число. Т.к. простых чисел меньше, чем натуральных, то реализуем алгоритм, который будет предлагать простое число с вероятностью 1/2
-    private int getNumber(int[] primeSpace, int[] cashAnswer) {
+    private static int getNumber(int[] primeSpace, int[] cashAnswer) {
         boolean cur = true;
         // Получаем случайное число
         int n = getRandomNumber(1, 10);
         if (n <= 5) {
             // Возвращаем обычное
             do {
-                n = getRandomNumber(2, this.maxNum);
+                n = getRandomNumber(2, maxNum);
                 // Проверяем, чтобы число не было простым и не совпадало с предыдущими вопросами
                 cur = ArrayUtils.contains(primeSpace, n) || ArrayUtils.contains(cashAnswer, n);
             } while(cur);

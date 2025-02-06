@@ -1,14 +1,12 @@
-package hexlet.code;
+package hexlet.code.games;
 
-class GameEven implements RunnableApp {
+import java.util.Scanner;
+
+public class GameEven {
     // Количество побед, до которых продолжается игра. Нужно для гибкости, если будет необходимость играть дольше/меньше
-    private int countWin = 3;
+    private static int countWin = 3;
 
-    public void run(Cli cli) {
-        // Приветствие перед игрой
-        GameGreeting greeting = new GameGreeting();
-        greeting.run(cli);
-        String name = greeting.getName();
+    public static void run(Scanner in, String name) {
 
         // Показываем правила
         System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
@@ -26,7 +24,9 @@ class GameEven implements RunnableApp {
             number = (int) (Math.random() * 100);
             even = number % 2 == 0 ? true : false;
             System.out.println("Question: " + number);
-            answer = cli.getAnswerStringOnLine("Your answer: ").toLowerCase();
+            System.out.print("Your answer: ");
+            answer = in.next().toLowerCase();
+//            answer = cli.getAnswerStringOnLine("Your answer: ").toLowerCase();
 
             // Проверяем ответ
             if (!answer.equals("yes") && !answer.equals("no")) {
@@ -51,4 +51,5 @@ class GameEven implements RunnableApp {
             System.out.println("Let's try again, " + name + "!");
         }
     }
+
 }

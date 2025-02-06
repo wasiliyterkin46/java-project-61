@@ -9,6 +9,13 @@ public class Cli {
         this.in = in;
     }
 
+    public static void greeting(Scanner in) {
+        System.out.print("Welcome to the Brain Games!\nMay I have your name? ");
+//        StringBuilder builder = new StringBuilder("Hello, ");
+        String name = in.next();
+        System.out.println("Hello, " + name + "!");
+    }
+
     public void closeScanner() {
         this.in.close();
     }

@@ -1,21 +1,20 @@
-package hexlet.code;
+package hexlet.code.games;
 
-public class GameGcd implements RunnableApp {
+import java.util.Scanner;
+
+public class GameGcd {
     // Количество побед, до которых продолжается игра
-    private int countWin = 3;
+    private static int countWin = 3;
     // Границы НОД
-    private int numMin = 2;
-    private int numMax = 30;
+    private static int numMin = 2;
+    private static int numMax = 30;
     // Сложность
-    int complexity = 10;
-    int lightComplexity = 5;
-    int highComplexity = 10;
+    private static int complexity = 10;
+    private static int lightComplexity = 5;
+    private static int highComplexity = 10;
 
-    public void run(Cli cli) {
-        // Приветствие перед игрой
-        GameGreeting greeting = new GameGreeting();
-        greeting.run(cli);
-        String name = greeting.getName();
+    public static void run(Scanner in, String name) {
+
         // Показываем правила
         System.out.println("Find the greatest common divisor of given numbers.");
         // Вспомогательные переменные
@@ -31,19 +30,20 @@ public class GameGcd implements RunnableApp {
             // Получаем НОД
             gcd = getRandomNumber(numMin, numMax);
             // Если число двузначное, понижаем сложность
-            this.complexity = (int) gcd / 10 > 0 ? lightComplexity : highComplexity;
+            complexity = (int) gcd / 10 > 0 ? lightComplexity : highComplexity;
             // Заполняем массив чисел
             int[] space = getSpace(gcd);
             // Подбираем числа
-            num1 = space[getRandomNumber(0, this.complexity - 1)];
+            num1 = space[getRandomNumber(0, complexity - 1)];
             do {
-                num2 = space[getRandomNumber(0, this.complexity - 1)];
+                num2 = space[getRandomNumber(0, complexity - 1)];
             } while (num1 == num2);
 
             // Задаем вопрос
             System.out.println("Question: " + num1 + " " + num2);
             // Получаем ответ
-            answer = cli.getAnswerIntOnLine("Your answer: ");
+            System.out.print("Your answer: ");
+            answer = in.nextInt();
             // Обрабатываем результат
             if (answer == gcd) {
                 System.out.println("Correct!");
@@ -52,7 +52,7 @@ public class GameGcd implements RunnableApp {
                 System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" + gcd + "'.");
                 play = false;
             }
-        } while (play && countCorrect < this.countWin);
+        } while (play && countCorrect < countWin);
 
         // Завершаем игру
         if (countCorrect == countWin) {
@@ -63,18 +63,18 @@ public class GameGcd implements RunnableApp {
     }
 
     // Возвращает случайное число в заданном диапазоне
-    private int getRandomNumber(int min, int max) {
+    private static int getRandomNumber(int min, int max) {
         return (int) (Math.random() * (max + 1 - min) + min);
     }
 
     // Возвращает заполненный массив чисел c числами, у которых общий НОД
-    private int[] getSpace(int gcd) {
-        int[] result = new int[this.complexity];
+    private static int[] getSpace(int gcd) {
+        int[] result = new int[complexity];
         result[0] = gcd;
         int next = 0;
         int countFail = 0;
 
-        for (int x = 1; x < this.complexity; x++) {
+        for (int x = 1; x < complexity; x++) {
             next = result[x - 1] + gcd;
             do {
                 countFail = x - 1;
