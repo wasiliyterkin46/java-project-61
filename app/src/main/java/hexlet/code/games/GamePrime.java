@@ -9,9 +9,9 @@ import org.apache.commons.lang3.ArrayUtils;
 public class GamePrime {
     // Переменные класса
     // Количество побед, до которых продолжается игра
-    private static int countWin = 3;
+    private final static int countWin = 3;
     // Верхняя граница чисел
-    private static int maxNum = 99;
+    private final static int maxNum = 99;
 
     public static void run(Scanner in, String name) {
 

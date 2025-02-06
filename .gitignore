@@ -6,6 +6,7 @@ build/
 *.class
 
 ### IntelliJ IDEA ###
+app/.idea/
 .idea/misc.xml
 .idea/modules.xml
 .idea/jarRepositories.xml
