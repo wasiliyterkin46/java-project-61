@@ -63,7 +63,8 @@ public class GameCalc {
     // Возвращает рандомный множитель 1 или -1. Это надо, если хотим игру с отрицательными числами
     private static int getSign() {
         int result = (int) (Math.random() * 10);
-        return result <= 5 ? (-1) : 1;
+//        return result <= 5 ? (-1) : 1;
+        return 1;
     }
 
     // Возвращает результат операции
