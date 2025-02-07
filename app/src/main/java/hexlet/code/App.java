@@ -1,6 +1,11 @@
 package hexlet.code;
 
-import hexlet.code.games.*;
+import hexlet.code.games.GameCalc;
+import hexlet.code.games.GameEven;
+import hexlet.code.games.GameGcd;
+import hexlet.code.games.GameGreeting;
+import hexlet.code.games.GamePrime;
+import hexlet.code.games.GameProgression;
 
 import java.util.Scanner;
 
@@ -51,6 +56,8 @@ public class App {
                     name = GameGreeting.run(in);
                     // Игра
                     GamePrime.run(in, name);
+                    break;
+                default:
                     break;
             }
 

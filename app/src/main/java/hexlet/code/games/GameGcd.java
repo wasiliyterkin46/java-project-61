@@ -4,14 +4,13 @@ import java.util.Scanner;
 
 public class GameGcd {
     // Количество побед, до которых продолжается игра
-    private static int countWin = 3;
+    private static final int COUNT_WIN = 3;
     // Границы НОД
-    private static int numMin = 2;
-    private static int numMax = 30;
+    private static final int NUM_MIN = 2;
+    private static final int NUM_MAX = 30;
     // Сложность
-    private static int complexity = 10;
-    private static int lightComplexity = 5;
-    private static int highComplexity = 10;
+    private static final int LIGHT_COMPLEXITY = 5;
+    private static final int HIGH_COMPLEXITY = 10;
 
     public static void run(Scanner in, String name) {
 
@@ -28,15 +27,15 @@ public class GameGcd {
         // Игра
         do {
             // Получаем НОД
-            gcd = getRandomNumber(numMin, numMax);
+            gcd = getRandomNumber(NUM_MIN, NUM_MAX);
             // Если число двузначное, понижаем сложность
-            complexity = (int) gcd / 10 > 0 ? lightComplexity : highComplexity;
+            int curComplexity = (int) gcd / 10 > 0 ? LIGHT_COMPLEXITY : HIGH_COMPLEXITY;
             // Заполняем массив чисел
-            int[] space = getSpace(gcd);
+            int[] space = getSpace(gcd, curComplexity);
             // Подбираем числа
-            num1 = space[getRandomNumber(0, complexity - 1)];
+            num1 = space[getRandomNumber(0, curComplexity - 1)];
             do {
-                num2 = space[getRandomNumber(0, complexity - 1)];
+                num2 = space[getRandomNumber(0, curComplexity - 1)];
             } while (num1 == num2);
 
             // Задаем вопрос
@@ -52,10 +51,10 @@ public class GameGcd {
                 System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" + gcd + "'.");
                 play = false;
             }
-        } while (play && countCorrect < countWin);
+        } while (play && countCorrect < COUNT_WIN);
 
         // Завершаем игру
-        if (countCorrect == countWin) {
+        if (countCorrect == COUNT_WIN) {
             System.out.println("Congratulations, " + name + "!");
         } else {
             System.out.println("Let's try again, " + name + "!");
@@ -68,7 +67,7 @@ public class GameGcd {
     }
 
     // Возвращает заполненный массив чисел c числами, у которых общий НОД
-    private static int[] getSpace(int gcd) {
+    private static int[] getSpace(int gcd, int complexity) {
         int[] result = new int[complexity];
         result[0] = gcd;
         int next = 0;
@@ -85,7 +84,7 @@ public class GameGcd {
                         countFail--;
                     }
                 }
-            } while(countFail > 0);
+            } while (countFail > 0);
             result[x] = next;
         }
 

@@ -1,18 +1,19 @@
 package hexlet.code.games;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class GameProgression {
     // Переменные класса
     // Количество побед, до которых продолжается игра
-    private static int countWin = 3;
+    private static final int COUNT_WIN = 3;
     // Длина последовательности
-    private static int minLen = 5;
-    private static int maxLen = 10;
+    private static final int MIN_LEN = 5;
+    private static final int MAX_LEN = 10;
     // Диапазон шага прогрессии
-    private static int  stepProgressionMax = 20;
+    private static final int STEP_PROGRESSION_MAX = 20;
     // Диапазон стартового числа
-    private static int startNumMax = 20;
+    private static final int START_NUM_MAX = 20;
 
    public static void run(Scanner in, String name) {
 
@@ -31,11 +32,11 @@ public class GameProgression {
         // Игра
         do {
             // Генерируем шаг прогрессии
-            stepProgression = getRandomNumber(1, stepProgressionMax) * getSign();
+            stepProgression = getRandomNumber(1, STEP_PROGRESSION_MAX) * getSign();
             // Генерируем длину прогрессии
-            lenProg = getRandomNumber(minLen, maxLen);
+            lenProg = getRandomNumber(MIN_LEN, MAX_LEN);
             // Генерируем начальное число прогрессии
-            startNum = getRandomNumber(0, startNumMax) * getSign();
+            startNum = getRandomNumber(0, START_NUM_MAX) * getSign();
             // Генерируем прогрессию
             int[] progression = getProgression(startNum, lenProg, stepProgression);
             // Получаем индекс скрываемого элемента
@@ -52,14 +53,15 @@ public class GameProgression {
                 System.out.println("Correct!");
                 countCorrect++;
             } else {
-                System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" + progression[hideElem] + "'.");
+                System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" +
+                        progression[hideElem] + "'.");
                 play = false;
             }
 
-        } while (play && countCorrect < countWin);
+        } while (play && countCorrect < COUNT_WIN);
 
         // Завершаем игру
-        if (countCorrect == countWin) {
+        if (countCorrect == COUNT_WIN) {
             System.out.println("Congratulations, " + name + "!");
         } else {
             System.out.println("Let's try again, " + name + "!");
@@ -84,8 +86,9 @@ public class GameProgression {
 
     // Возвращает рандомный множитель 1 или -1. Это надо, если хотим игру с отрицательными числами
     private static int getSign() {
-        int result = (int) (Math.random() * 10);
-        return result <= 5 ? (-1) : 1;
+        Random rnd = new Random();
+        boolean res = rnd.nextBoolean();
+        return res ? (-1) : 1;
     }
 
     // Возвращает сроку элементов массива с разделителем пробел и пропуском указанного элемента

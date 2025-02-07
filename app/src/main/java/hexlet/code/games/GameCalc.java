@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class GameCalc {
     // Количество побед, до которых продолжается игра
-    private static int countWin = 3;
-    private static int numMin = 1;
-    private static int numMax = 30;
+    private static final int COUNT_WIN = 3;
+    private static final int NUM_MIN = 1;
+    private static final int NUM_MAX = 30;
     private static char[] cycleOfOperations = {'+', '-', '*'};
 
     public static void run(Scanner in, String name) {
@@ -26,8 +26,8 @@ public class GameCalc {
         // Игра
         do {
             // Генерируем числа
-            num1 = getRandomNumber(numMin, numMax) * getSign();
-            num2 = getRandomNumber(numMin, numMax) * getSign();
+            num1 = getRandomNumber(NUM_MIN, NUM_MAX);
+            num2 = getRandomNumber(NUM_MIN, NUM_MAX);
             // Получаем результат операции
             resultOper = getResultOper(num1, num2, countCorrect);
             // Генерируем текст вопроса
@@ -45,10 +45,10 @@ public class GameCalc {
                 play = false;
             }
 
-        } while (play && countCorrect < countWin);
+        } while (play && countCorrect < COUNT_WIN);
 
         // Завершаем игру
-        if (countCorrect == countWin) {
+        if (countCorrect == COUNT_WIN) {
             System.out.println("Congratulations, " + name + "!");
         } else {
             System.out.println("Let's try again, " + name + "!");
@@ -58,13 +58,6 @@ public class GameCalc {
     // Возвращает случайное число в заданном диапазоне
     private static int getRandomNumber(int min, int max) {
         return (int) (Math.random() * (max + 1 - min) + min);
-    }
-
-    // Возвращает рандомный множитель 1 или -1. Это надо, если хотим игру с отрицательными числами
-    private static int getSign() {
-        int result = (int) (Math.random() * 10);
-//        return result <= 5 ? (-1) : 1;
-        return 1;
     }
 
     // Возвращает результат операции
@@ -80,6 +73,8 @@ public class GameCalc {
             case '*':
                 result = num1 * num2;
                 break;
+            default:
+                result = 0;
         }
         return result;
     }

@@ -14,7 +14,7 @@ public class GamePrime {
     // Верхняя граница чисел
     private static final int MAX_NUM = 99;
     // Экземпляр класса Random для получения 50% вероятности получения простого числа
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     public static void run(Scanner in, String name) {
 
@@ -27,7 +27,7 @@ public class GamePrime {
         String answer = ""; // Ответ пользователя
         String result = ""; // Правильный ответ
         int number = 0; // Число для вопроса
-        int[] primeSpace = getPrimeSpace();
+        int[] primeSpace = getPrimeSpace(); // Массив простых чисел
         int[] cashAnswer = new int[COUNT_WIN]; // Хранение заданных чисел, чтобы не повторялись
 
         // Игра
@@ -72,16 +72,15 @@ public class GamePrime {
     private static int[] getPrimeSpace() {
         // Инициализируем массив длиной = максимум / 2, т.к. четные числа заведомо не будут простыми.
         int[] result = new int[(int) MAX_NUM / 2];
-        // Индекс, с которого начинаем заполнять массив простых чисел
-        int start = 3;
+
         // Двум первым элементам присваиваем простые числа 1 и 2
         result[0] = 1;
         result[1] = 2;
         boolean simple = true; // Признак, что число простое
 
-        int index = 2; // индекс, в который записываем очередное простое число
+        int index = result.length; // индекс, в который записываем следующее простое число
         // Заполняем массив
-        for (int x = start; x < MAX_NUM; x += 2) {
+        for (int x = result[result.length - 1] + 1; x < MAX_NUM; x += 2) {
             simple = true;
             for (int y = 1; y < index; y++) {
                 if (x % result[y] == 0) {
@@ -103,10 +102,8 @@ public class GamePrime {
     // который будет предлагать простое число с вероятностью 1/2
     private static int getNumber(int[] primeSpace, int[] cashAnswer) {
         boolean cur = true;
-        // Получаем случайное число
         int n = 0;
-        // ???
-        boolean prime = random.nextBoolean();
+        boolean prime = RANDOM.nextBoolean();
         if (prime) {
             // Возвращаем обычное
             do {

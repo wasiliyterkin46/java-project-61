@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 public class GameEven {
     // Количество побед, до которых продолжается игра. Нужно для гибкости, если будет необходимость играть дольше/меньше
-    private static int countWin = 3;
+    private static final int COUNT_WIN = 3;
+    // Диапазон генерируемых чисел
+    private static final int MAX_NUM = 100;
 
     public static void run(Scanner in, String name) {
 
@@ -21,8 +23,8 @@ public class GameEven {
 
         // Игра
         do {
-            number = (int) (Math.random() * 100);
-            even = number % 2 == 0 ? true : false;
+            number = (int) (Math.random() * MAX_NUM);
+            even = number % 2 == 0;
             System.out.println("Question: " + number);
             System.out.print("Your answer: ");
             answer = in.next().toLowerCase();
@@ -30,7 +32,8 @@ public class GameEven {
 
             // Проверяем ответ
             if (!answer.equals("yes") && !answer.equals("no")) {
-                result = "'" + answer + "' - is wrong answer ;(. Must be 'yes' if the number is even, otherwise answer 'no'.";
+                result = "'" + answer + "' - is wrong answer ;(. " +
+                        "Must be 'yes' if the number is even, otherwise answer 'no'.";
                 play = false;
                 continue;
             }
@@ -38,13 +41,14 @@ public class GameEven {
                 System.out.println("Correct!");
                 countCorrect++;
             } else {
-                result = answer.equals("yes") ? "'yes' is wrong answer ;(. Correct answer was 'no'." : "'no' is wrong answer ;(. Correct answer was 'yes'.";
+                result = answer.equals("yes") ? "'yes' is wrong answer ;(. Correct answer was 'no'." :
+                        "'no' is wrong answer ;(. Correct answer was 'yes'.";
                 play = false;
             }
-        } while (play && countCorrect < countWin);
+        } while (play && countCorrect < COUNT_WIN);
 
         // Завершаем игру
-        if (countCorrect == countWin) {
+        if (countCorrect == COUNT_WIN) {
             System.out.println("Congratulations, " + name + "!");
         } else {
             System.out.println(result);
