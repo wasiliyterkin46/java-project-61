@@ -53,8 +53,8 @@ public class GameProgression {
                 System.out.println("Correct!");
                 countCorrect++;
             } else {
-                System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" +
-                        progression[hideElem] + "'.");
+                System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '"
+                        + progression[hideElem] + "'.");
                 play = false;
             }
 

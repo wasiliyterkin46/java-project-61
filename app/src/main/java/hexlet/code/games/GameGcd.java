@@ -29,7 +29,7 @@ public class GameGcd {
             // Получаем НОД
             gcd = getRandomNumber(NUM_MIN, NUM_MAX);
             // Если число двузначное, понижаем сложность
-            int curComplexity = (int) gcd / 10 > 0 ? LIGHT_COMPLEXITY : HIGH_COMPLEXITY;
+            int curComplexity = Integer.toString(gcd).length() > 1 ? LIGHT_COMPLEXITY : HIGH_COMPLEXITY;
             // Заполняем массив чисел
             int[] space = getSpace(gcd, curComplexity);
             // Подбираем числа

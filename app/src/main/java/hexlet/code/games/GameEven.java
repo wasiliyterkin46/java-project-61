@@ -32,8 +32,8 @@ public class GameEven {
 
             // Проверяем ответ
             if (!answer.equals("yes") && !answer.equals("no")) {
-                result = "'" + answer + "' - is wrong answer ;(. " +
-                        "Must be 'yes' if the number is even, otherwise answer 'no'.";
+                result = "'" + answer + "' - is wrong answer ;(. "
+                        + "Must be 'yes' if the number is even, otherwise answer 'no'.";
                 play = false;
                 continue;
             }
@@ -41,8 +41,8 @@ public class GameEven {
                 System.out.println("Correct!");
                 countCorrect++;
             } else {
-                result = answer.equals("yes") ? "'yes' is wrong answer ;(. Correct answer was 'no'." :
-                        "'no' is wrong answer ;(. Correct answer was 'yes'.";
+                result = answer.equals("yes") ? "'yes' is wrong answer ;(. Correct answer was 'no'."
+                        : "'no' is wrong answer ;(. Correct answer was 'yes'.";
                 play = false;
             }
         } while (play && countCorrect < COUNT_WIN);

@@ -15,7 +15,7 @@ public class App {
         Scanner in = new Scanner(System.in);
         try {
             // Выбор игры
-            int game = getGame(in);
+            String game = getGame(in);
             System.out.println("");
 
             // Переменная для имени
@@ -24,34 +24,34 @@ public class App {
 
             // Запуск игры
             switch (game) {
-                case 1:
+                case "1":
                     GameGreeting.run(in);
                     break;
-                case 2:
+                case "2":
                     // Приветствие
                     name = GameGreeting.run(in);
                     // Игра
                     GameEven.run(in, name);
                     break;
-                case 3:
+                case "3":
                     // Приветствие
                     name = GameGreeting.run(in);
                     // Игра
                     GameCalc.run(in, name);
                     break;
-                case 4:
+                case "4":
                     // Приветствие
                     name = GameGreeting.run(in);
                     // Игра
                     GameGcd.run(in, name);
                     break;
-                case 5:
+                case "5":
                     // Приветствие
                     name = GameGreeting.run(in);
                     // Игра
                     GameProgression.run(in, name);
                     break;
-                case 6:
+                case "6":
                     // Приветствие
                     name = GameGreeting.run(in);
                     // Игра
@@ -72,7 +72,7 @@ public class App {
     }
 
     // Функция возвращает номер выбранной игры
-    private static int getGame(Scanner in) {
+    private static String getGame(Scanner in) {
         StringBuilder builder = new StringBuilder("Please enter the game number and press Enter.\n");
         builder.append("1 - Greet\n");
         builder.append("2 - Even\n");
@@ -83,7 +83,7 @@ public class App {
         builder.append("0 - Exit");
         System.out.println(builder.toString());
         System.out.print("Your choice: ");
-        int result = in.nextInt();
+        String result = in.next();
         return result;
     }
 
