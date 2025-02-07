@@ -78,9 +78,9 @@ public class GamePrime {
         result[1] = 2;
         boolean simple = true; // Признак, что число простое
 
-        int index = result.length; // индекс, в который записываем следующее простое число
+        int index = result[1]; // индекс, в который записываем следующее простое число
         // Заполняем массив
-        for (int x = result[result.length - 1] + 1; x < MAX_NUM; x += 2) {
+        for (int x = result[1] + 1; x < MAX_NUM; x += 2) {
             simple = true;
             for (int y = 1; y < index; y++) {
                 if (x % result[y] == 0) {
