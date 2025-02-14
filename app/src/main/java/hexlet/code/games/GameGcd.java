@@ -1,7 +1,5 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
-
 public class GameGcd {
     // Границы НОД
     private static final int NUM_MIN = 2;

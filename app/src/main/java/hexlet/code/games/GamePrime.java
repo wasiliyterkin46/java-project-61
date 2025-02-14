@@ -1,9 +1,8 @@
 package hexlet.code.games;
 
-import java.util.*;
-
-import org.apache.commons.lang3.ArrayUtils;
-
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class GamePrime {
     // Верхняя граница чисел
@@ -54,10 +53,11 @@ public class GamePrime {
         List<Integer> noPrimeNumbers = new LinkedList<>();
 
         for (int x = 1; x <= MAX_NUM; x++) {
-            if (numberIsPrime(primeNumbers, x))
+            if (numberIsPrime(primeNumbers, x)) {
                 primeNumbers.add(x);
-            else
+            } else {
                 noPrimeNumbers.add(x);
+            }
         }
 
         arrayOfPrimeNumbers = primeNumbers.toArray(new Integer[primeNumbers.size()]);
@@ -65,15 +65,19 @@ public class GamePrime {
     }
 
     private static boolean numberIsPrime(List<Integer> currentPrimeList, int number) {
-        if (number == 1 || number == 2)
+        if (number == 1 || number == 2) {
             return true;
+        }
         for (var i : currentPrimeList) {
-            if (i == 1)
+            if (i == 1) {
                 continue;
-            if (i * 2 > number)
+            }
+            if (i * 2 > number) {
                 break;
-            if (number % i == 0)
+            }
+            if (number % i == 0) {
                 return false;
+            }
         }
         return true;
     }
@@ -84,13 +88,12 @@ public class GamePrime {
 
         if (nextIndex != currentIndex) {
             changeElementOfArrray(arrayOfNumbers, currentIndex, nextIndex);
-            // Вот эти действия ниже реализуем в процедуре которая выше
-
         }
 
         currentIndex++;
-        if (currentIndex == arrayOfNumbers.length)
+        if (currentIndex == arrayOfNumbers.length) {
             currentIndex = 0;
+        }
 
         return Integer.toString(valueNextIndex);
     }

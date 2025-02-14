@@ -9,37 +9,35 @@ import hexlet.code.games.GameProgression;
 
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.function.Function;
-import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 
 public class App {
 
     private static String nameUser;
-    private static final Scanner in = new Scanner(System.in);
+    private static final Scanner IN = new Scanner(System.in);
     private static final int COUNT_WIN = 3;
 
     public static void main(String[] args) {
         try {
             // Выбор игры
-            String game = getGame(in);
+            String game = getGame();
             // Запуск игры
             Boolean resultGame = prepareGame(game);
             // Формируем сообщение о результатах игры
             closeGame(resultGame);
             // Закрываем сканнер
-            in.close();
+            IN.close();
 
         } catch (RuntimeException e) {
             System.out.println("\nВы ввели некорректное значение!");
             // Закрываем сканнер
-            in.close();
+            IN.close();
         }
     }
 
     // Предлагаем меню игр и возвращаем номер выбранной игры
-    private static String getGame(Scanner in) {
+    private static String getGame() {
         StringBuilder builder = new StringBuilder("Please enter the game number and press Enter.\n");
         builder.append("1 - Greet\n");
         builder.append("2 - Even\n");
@@ -50,14 +48,14 @@ public class App {
         builder.append("0 - Exit");
         System.out.println(builder.toString());
         System.out.print("Your choice: ");
-        String result = in.next();
+        String result = IN.next();
         System.out.println("");
         return result;
     }
     // Подготовка игры
     private static Boolean prepareGame(String game) {
         if (game.equals("1")) {
-            GameGreeting.run(in);
+            GameGreeting.run(IN);
             return null;
         } else {
             switch (game) {
@@ -83,13 +81,13 @@ public class App {
                                     Supplier<String> questGetter,
                                     Supplier<String> correctAnswerGetter) {
 
-        nameUser = GameGreeting.run(in);
+        nameUser = GameGreeting.run(IN);
 
         System.out.println(rulesGetter.get());
         int curWin = 0;
         while (curWin < COUNT_WIN) {
             System.out.print("Question: " + questGetter.get() + "\nYour answer: ");
-            String answer = in.next();
+            String answer = IN.next();
 
             String correctAnswer = correctAnswerGetter.get();
 

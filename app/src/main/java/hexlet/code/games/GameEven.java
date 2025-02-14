@@ -1,7 +1,5 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
-
 public class GameEven {
     // Диапазон генерируемых чисел
     private static final int MAX_NUM = 100;
