@@ -4,9 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameProgression {
-    // Переменные класса
-    // Количество побед, до которых продолжается игра
-    private static final int COUNT_WIN = 3;
     // Длина последовательности
     private static final int MIN_LEN = 5;
     private static final int MAX_LEN = 10;
@@ -14,10 +11,12 @@ public class GameProgression {
     private static final int STEP_PROGRESSION_MAX = 20;
     // Диапазон стартового числа
     private static final int START_NUM_MAX = 20;
+    // Хранится правильный ответ
+    private static String correctAnswer = "";
 
-   public static void run(Scanner in, String name) {
+    /*public static void run(Scanner in, String name) {
 
-       // Показываем правила
+        // Показываем правила
         System.out.println("What number is missing in the progression?");
 
         // Вспомогательные переменные
@@ -66,7 +65,7 @@ public class GameProgression {
         } else {
             System.out.println("Let's try again, " + name + "!");
         }
-    }
+    }*/
 
     // Возвращает прогрессию по заданным начальному числу, количеству элементов и шагу
     private static int[] getProgression(int startNum, int countElem, int step) {
@@ -100,4 +99,34 @@ public class GameProgression {
         }
         return builder.toString();
     }
+
+
+    // Возвращает правила
+    public static String getRules() {
+        return "What number is missing in the progression?";
+    }
+
+    // Возвращает текст вопроса
+    public static String getQuestion() {
+        // Генерируем шаг прогрессии
+        int stepProgression = getRandomNumber(1, STEP_PROGRESSION_MAX) * getSign();
+        // Генерируем длину прогрессии
+        int lenProg = getRandomNumber(MIN_LEN, MAX_LEN);
+        // Генерируем начальное число прогрессии
+        int startNum = getRandomNumber(0, START_NUM_MAX) * getSign();
+        // Генерируем прогрессию
+        int[] progression = getProgression(startNum, lenProg, stepProgression);
+        // Получаем индекс скрываемого элемента
+        int hideElem = getRandomNumber(0, lenProg - 1);
+        // Запоминаем правильный ответ
+        correctAnswer = String.valueOf(progression[hideElem]);
+
+        return getArrayToString(progression, hideElem);
+    }
+
+    // Возвращает правильный ответ.
+    public static String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
 }

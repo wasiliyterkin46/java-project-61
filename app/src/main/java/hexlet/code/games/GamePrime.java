@@ -1,121 +1,108 @@
 package hexlet.code.games;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import org.apache.commons.lang3.ArrayUtils;
 
 
 public class GamePrime {
-    // Переменные класса
-    // Количество побед, до которых продолжается игра
-    private static final int COUNT_WIN = 3;
     // Верхняя граница чисел
     private static final int MAX_NUM = 99;
-    // Экземпляр класса Random для получения 50% вероятности получения простого числа
-    private static final Random RANDOM = new Random();
 
-    public static void run(Scanner in, String name) {
+    // Массив простых чисел
+    private static Integer[] arrayOfPrimeNumbers;
+    private static Integer currentAvailableIndexArrayOfPrimeNumbers = 0;
+    // Массив не простых чисел
+    private static Integer[] arrayOfNotPrimeNumbers;
+    private static Integer currentAvailableIndexArrayOfNotPrimeNumbers = 0;
+    // Хранится правильный ответ
+    private static String correctAnswer = "";
 
-        // Показываем правила
-        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
-
-        // Вспомогательные переменные
-        int countCorrect = 0; // Количество правильных ответов
-        boolean play = true; // Признак продолжения игры
-        String answer = ""; // Ответ пользователя
-        String result = ""; // Правильный ответ
-        int number = 0; // Число для вопроса
-        int[] primeSpace = getPrimeSpace(); // Массив простых чисел
-        int[] cashAnswer = new int[COUNT_WIN]; // Хранение заданных чисел, чтобы не повторялись
-
-        // Игра
-        do {
-            // Генерируем число
-            number = getNumber(primeSpace, cashAnswer);
-            result = ArrayUtils.contains(primeSpace, number) ? "yes" : "no";
-            // Если число простое, то удаляем его из множества простых чисел, чтобы не повторялось в вопросах
-            if (result.equals("yes")) {
-                primeSpace = ArrayUtils.removeElement(primeSpace, number);
-            }
-            // Задаем вопрос
-            System.out.println("Question: " + number);
-            // Получаем ответ
-            System.out.print("Your answer: ");
-            answer = in.next().toLowerCase().trim();
-            cashAnswer[countCorrect] = number;
-            // Обрабатываем результат
-            if (answer.equals(result)) {
-                System.out.println("Correct!");
-                countCorrect++;
-            } else {
-                System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" + result + "'.");
-                play = false;
-            }
-        } while (play && countCorrect < COUNT_WIN);
-
-        // Завершаем игру
-        if (countCorrect == COUNT_WIN) {
-            System.out.println("Congratulations, " + name + "!");
-        } else {
-            System.out.println("Let's try again, " + name + "!");
-        }
+    static {
+        createSetsOfNumbers();
     }
 
-    // Возвращает случайное число в заданном диапазоне
-    private static int getRandomNumber(int min, int max) {
+    // Возвращает правила
+    public static String getRules() {
+        return "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+    }
+
+    // Возвращает текст вопроса
+    public static String getQuestion() {
+        String question;
+
+        Random rnd = new Random();
+        boolean isPrime = rnd.nextBoolean();
+        if (isPrime) {
+            question = nextNumber(arrayOfPrimeNumbers, currentAvailableIndexArrayOfPrimeNumbers);
+            correctAnswer = "yes";
+        } else {
+            question = nextNumber(arrayOfNotPrimeNumbers, currentAvailableIndexArrayOfNotPrimeNumbers);
+            correctAnswer = "no";
+        }
+
+        return question;
+    }
+
+    // Возвращает правильный ответ.
+    public static String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    private static void createSetsOfNumbers() {
+        List<Integer> primeNumbers = new LinkedList<>();
+        List<Integer> noPrimeNumbers = new LinkedList<>();
+
+        for (int x = 1; x <= MAX_NUM; x++) {
+            if (numberIsPrime(primeNumbers, x))
+                primeNumbers.add(x);
+            else
+                noPrimeNumbers.add(x);
+        }
+
+        arrayOfPrimeNumbers = primeNumbers.toArray(new Integer[primeNumbers.size()]);
+        arrayOfNotPrimeNumbers = noPrimeNumbers.toArray(new Integer[noPrimeNumbers.size()]);
+    }
+
+    private static boolean numberIsPrime(List<Integer> currentPrimeList, int number) {
+        if (number == 1 || number == 2)
+            return true;
+        for (var i : currentPrimeList) {
+            if (i == 1)
+                continue;
+            if (i * 2 > number)
+                break;
+            if (number % i == 0)
+                return false;
+        }
+        return true;
+    }
+
+    private static String nextNumber(Integer[] arrayOfNumbers, Integer currentIndex) {
+        int nextIndex = getRandomInteger(currentIndex, arrayOfNumbers.length - 1);
+        int valueNextIndex = arrayOfNumbers[nextIndex];
+
+        if (nextIndex != currentIndex) {
+            changeElementOfArrray(arrayOfNumbers, currentIndex, nextIndex);
+            // Вот эти действия ниже реализуем в процедуре которая выше
+
+        }
+
+        currentIndex++;
+        if (currentIndex == arrayOfNumbers.length)
+            currentIndex = 0;
+
+        return Integer.toString(valueNextIndex);
+    }
+
+    private static int getRandomInteger(int min, int max) {
         return (int) (Math.random() * (max + 1 - min) + min);
     }
 
-    // Возвращает массив простых чисел от 1 до указанного максимума
-    private static int[] getPrimeSpace() {
-        // Инициализируем массив длиной = максимум / 2, т.к. четные числа заведомо не будут простыми.
-        int[] result = new int[(int) MAX_NUM / 2];
-
-        // Двум первым элементам присваиваем простые числа 1 и 2
-        result[0] = 1;
-        result[1] = 2;
-        boolean simple = true; // Признак, что число простое
-
-        int index = result[1]; // индекс, в который записываем следующее простое число
-        // Заполняем массив
-        for (int x = result[1] + 1; x < MAX_NUM; x += 2) {
-            simple = true;
-            for (int y = 1; y < index; y++) {
-                if (x % result[y] == 0) {
-                    simple = false;
-                    break;
-                }
-            }
-            if (simple) {
-                result[index] = x;
-                index++;
-            }
-        }
-
-        // Возвращаем новый массив, отсеяв элементы, равные нулю
-        return Arrays.copyOf(result, index);
+    private static void changeElementOfArrray(Integer[] arrayOfNumbers, int indexFirst, int indexSecond) {
+        int valueNextIndex = arrayOfNumbers[indexSecond];
+        arrayOfNumbers[indexSecond] = arrayOfNumbers[indexFirst];
+        arrayOfNumbers[indexFirst] = valueNextIndex;
     }
 
-    // Возвращает сгенерированное число. Т.к. простых чисел меньше, чем натуральных, то реализуем алгоритм,
-    // который будет предлагать простое число с вероятностью 1/2
-    private static int getNumber(int[] primeSpace, int[] cashAnswer) {
-        boolean cur = true;
-        int n = 0;
-        boolean prime = RANDOM.nextBoolean();
-        if (prime) {
-            // Возвращаем обычное
-            do {
-                n = getRandomNumber(2, MAX_NUM);
-                // Проверяем, чтобы число не было простым и не совпадало с предыдущими вопросами
-                cur = ArrayUtils.contains(primeSpace, n) || ArrayUtils.contains(cashAnswer, n);
-            } while (cur);
-            return n;
-        } else {
-            // Возвращаем простое
-            n = getRandomNumber(0, primeSpace.length - 1);
-            return primeSpace[n];
-        }
-    }
 }

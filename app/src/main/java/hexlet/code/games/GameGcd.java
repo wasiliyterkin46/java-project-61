@@ -3,63 +3,14 @@ package hexlet.code.games;
 import java.util.Scanner;
 
 public class GameGcd {
-    // Количество побед, до которых продолжается игра
-    private static final int COUNT_WIN = 3;
     // Границы НОД
     private static final int NUM_MIN = 2;
     private static final int NUM_MAX = 30;
     // Сложность
     private static final int LIGHT_COMPLEXITY = 5;
     private static final int HIGH_COMPLEXITY = 10;
-
-    public static void run(Scanner in, String name) {
-
-        // Показываем правила
-        System.out.println("Find the greatest common divisor of given numbers.");
-        // Вспомогательные переменные
-        int countCorrect = 0; // Количество правильных ответов
-        boolean play = true; // Признак продолжения игры
-        int answer = 0; // Хранение ответа
-        int num1;
-        int num2;
-        int gcd;
-
-        // Игра
-        do {
-            // Получаем НОД
-            gcd = getRandomNumber(NUM_MIN, NUM_MAX);
-            // Если число двузначное, понижаем сложность
-            int curComplexity = Integer.toString(gcd).length() > 1 ? LIGHT_COMPLEXITY : HIGH_COMPLEXITY;
-            // Заполняем массив чисел
-            int[] space = getSpace(gcd, curComplexity);
-            // Подбираем числа
-            num1 = space[getRandomNumber(0, curComplexity - 1)];
-            do {
-                num2 = space[getRandomNumber(0, curComplexity - 1)];
-            } while (num1 == num2);
-
-            // Задаем вопрос
-            System.out.println("Question: " + num1 + " " + num2);
-            // Получаем ответ
-            System.out.print("Your answer: ");
-            answer = in.nextInt();
-            // Обрабатываем результат
-            if (answer == gcd) {
-                System.out.println("Correct!");
-                countCorrect++;
-            } else {
-                System.out.println("'" + answer + "' is wrong answer ;(. Correct answer was '" + gcd + "'.");
-                play = false;
-            }
-        } while (play && countCorrect < COUNT_WIN);
-
-        // Завершаем игру
-        if (countCorrect == COUNT_WIN) {
-            System.out.println("Congratulations, " + name + "!");
-        } else {
-            System.out.println("Let's try again, " + name + "!");
-        }
-    }
+    // Хранится правильный ответ
+    private static String correctAnswer = "";
 
     // Возвращает случайное число в заданном диапазоне
     private static int getRandomNumber(int min, int max) {
@@ -90,4 +41,36 @@ public class GameGcd {
 
         return result;
     }
+
+    // Возвращает правила.
+    public static String getRules() {
+        return "Find the greatest common divisor of given numbers.";
+    }
+
+    // Возвращает текст вопроса.
+    public static String getQuestion() {
+        // Получаем НОД
+        int gcd = getRandomNumber(NUM_MIN, NUM_MAX);
+        // Если число двузначное, понижаем сложность
+        int curComplexity = Integer.toString(gcd).length() > 1 ? LIGHT_COMPLEXITY : HIGH_COMPLEXITY;
+        // Заполняем массив чисел
+        int[] space = getSpace(gcd, curComplexity);
+        // Подбираем числа
+        int num1 = space[getRandomNumber(0, curComplexity - 1)];
+        int num2;
+        do {
+            num2 = space[getRandomNumber(0, curComplexity - 1)];
+        } while (num1 == num2);
+
+        //Записываем правильный ответ
+        correctAnswer = String.valueOf(gcd);
+
+        return num1 + " " + num2;
+    }
+
+    // Возвращает правильный ответ.
+    public static String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
 }
