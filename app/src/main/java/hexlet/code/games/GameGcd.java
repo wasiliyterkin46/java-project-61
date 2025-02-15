@@ -1,5 +1,7 @@
 package hexlet.code.games;
 
+import java.util.Arrays;
+
 public class GameGcd {
     // Границы НОД
     private static final int NUM_MIN = 2;
@@ -19,25 +21,28 @@ public class GameGcd {
     private static int[] getSpace(int gcd, int complexity) {
         int[] result = new int[complexity];
         result[0] = gcd;
-        int next = 0;
         int countFail = 0;
 
         for (int x = 1; x < complexity; x++) {
-            next = result[x - 1] + gcd;
-            do {
-                countFail = x - 1;
-                for (int y = 1; y < x; y++) {
-                    if (next % result[y] == 0) {
-                        next += gcd;
-                    }  else {
-                        countFail--;
-                    }
-                }
-            } while (countFail > 0);
+            int next = result[x - 1] + gcd;
+            int[] verifiableNumbers = Arrays.copyOfRange(result, 1, x);
+
+            while (!nextHasGcdIsOnlyFirstElement(verifiableNumbers, next)) {
+                next += gcd;
+            }
             result[x] = next;
         }
 
         return result;
+    }
+
+    private static boolean nextHasGcdIsOnlyFirstElement(int[] verifiableNumbers, int potentialNumber) {
+        for (int nextNumber : verifiableNumbers) {
+            if (potentialNumber % nextNumber == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // Возвращает правила.

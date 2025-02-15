@@ -68,16 +68,7 @@ public class GamePrime {
         if (number == 1) {
             return false;
         }
-        if (number == 2) {
-            return true;
-        }
         for (var i : currentPrimeList) {
-            if (i == 1) {
-                continue;
-            }
-            if (i * 2 > number) {
-                break;
-            }
             if (number % i == 0) {
                 return false;
             }
