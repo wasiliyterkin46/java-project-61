@@ -14,8 +14,6 @@ public class GamePrime {
     // Массив не простых чисел
     private static Integer[] arrayOfNotPrimeNumbers;
     private static Integer currentAvailableIndexArrayOfNotPrimeNumbers = 0;
-    // Хранится правильный ответ
-    private static String correctAnswer = "";
 
     static {
         createSetsOfNumbers();
@@ -27,8 +25,9 @@ public class GamePrime {
     }
 
     // Возвращает текст вопроса
-    public static String getQuestion() {
+    public static String[] getQuestion() {
         String question;
+        String correctAnswer;
 
         Random rnd = new Random();
         boolean isPrime = rnd.nextBoolean();
@@ -40,12 +39,8 @@ public class GamePrime {
             correctAnswer = "no";
         }
 
-        return question;
-    }
 
-    // Возвращает правильный ответ.
-    public static String getCorrectAnswer() {
-        return correctAnswer;
+        return new String[] {question, correctAnswer};
     }
 
     private static void createSetsOfNumbers() {
@@ -77,7 +72,7 @@ public class GamePrime {
     }
 
     private static String nextNumber(Integer[] arrayOfNumbers, Integer currentIndex) {
-        int nextIndex = getRandomInteger(currentIndex, arrayOfNumbers.length - 1);
+        int nextIndex = RandomUtils.getRandomIntegerInRange(currentIndex, arrayOfNumbers.length - 1);
         int valueNextIndex = arrayOfNumbers[nextIndex];
 
         if (nextIndex != currentIndex) {
@@ -90,10 +85,6 @@ public class GamePrime {
         }
 
         return Integer.toString(valueNextIndex);
-    }
-
-    private static int getRandomInteger(int min, int max) {
-        return (int) (Math.random() * (max + 1 - min) + min);
     }
 
     private static void changeElementOfArrray(Integer[] arrayOfNumbers, int indexFirst, int indexSecond) {

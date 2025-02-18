@@ -5,13 +5,6 @@ public class GameCalc {
     private static final int NUM_MAX = 30;
     private static int indexOperations = 0;
     private static char[] cycleOfOperations = {'+', '-', '*'};
-    // Хранится правильный ответ
-    private static String correctAnswer = "";
-
-    // Возвращает случайное число в заданном диапазоне
-    private static int getRandomNumber(int min, int max) {
-        return (int) (Math.random() * (max + 1 - min) + min);
-    }
 
     // Возвращает результат операции
     private static int getResultOper(int num1, int num2) {
@@ -37,26 +30,23 @@ public class GameCalc {
         return "What is the result of the expression?";
     }
 
-    // Возвращает текст вопроса
-    public static String getQuestion() {
+    // Возвращает текст вопроса и ответ
+    public static String[] getQuestion() {
         // Генерируем числа
-        int num1 = getRandomNumber(NUM_MIN, NUM_MAX);
-        int num2 = getRandomNumber(NUM_MIN, NUM_MAX);
-        correctAnswer = String.valueOf(getResultOper(num1, num2));
+        int num1 = RandomUtils.getRandomIntegerInRange(NUM_MIN, NUM_MAX);
+        int num2 = RandomUtils.getRandomIntegerInRange(NUM_MIN, NUM_MAX);
         StringBuilder builder = new StringBuilder(String.valueOf(num1));
         builder.append(" ");
         builder.append(cycleOfOperations[indexOperations % cycleOfOperations.length]);
         builder.append(" ");
         builder.append(num2);
+
+        String question = builder.toString();
+        String correctAnswer = String.valueOf(getResultOper(num1, num2));
+
         // Увеличиваем индекс после возврата очередного вопроса, чтобы менять знак операции
         indexOperations++;
 
-        return builder.toString();
+        return new String[] {question, correctAnswer};
     }
-
-    // Возвращает правильный ответ
-    public static String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
 }

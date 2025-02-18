@@ -3,8 +3,6 @@ package hexlet.code.games;
 public class GameEven {
     // Диапазон генерируемых чисел
     private static final int MAX_NUM = 100;
-    // Хранится правильный ответ
-    private static String correctAnswer = "";
 
     // Возвращает правила
     public static String getRules() {
@@ -12,15 +10,12 @@ public class GameEven {
     }
 
     // Возвращает текст вопроса
-    public static String getQuestion() {
-        int number = (int) (Math.random() * MAX_NUM);
-        correctAnswer = number % 2 == 0 ? "yes" : "no";
-        return String.valueOf(number);
-    }
+    public static String[] getQuestion() {
+        int number = RandomUtils.getRandomInteger(MAX_NUM);
+        String question = String.valueOf(number);
+        String correctAnswer = number % 2 == 0 ? "yes" : "no";
 
-    // Возвращает правильный ответ.
-    public static String getCorrectAnswer() {
-        return correctAnswer;
+        return new String[] {question, correctAnswer};
     }
 
 }
