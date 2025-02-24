@@ -11,7 +11,7 @@ public class App {
             // Формируем сообщение о результатах игры
             Engine.closeGame(resultGame);
         } catch (RuntimeException e) {
-            System.out.println("\nВы ввели некорректное значение!");
+            System.out.println(e.getMessage());
         }
     }
 }

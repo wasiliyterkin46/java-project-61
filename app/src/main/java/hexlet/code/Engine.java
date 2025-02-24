@@ -40,31 +40,33 @@ public final class Engine {
         } else {
             switch (game) {
                 case "2":
-                    return playGame(GameEven::getRules, GameEven::getQuestion);
+                    return playGame(GameEven.getRules(), GameEven::getQuestion);
                 case "3":
-                    return playGame(GameCalc::getRules, GameCalc::getQuestion);
+                    return playGame(GameCalc.getRules(), GameCalc::getQuestion);
                 case "4":
-                    return playGame(GameGcd::getRules, GameGcd::getQuestion);
+                    return playGame(GameGcd.getRules(), GameGcd::getQuestion);
                 case "5":
-                    return playGame(GameProgression::getRules, GameProgression::getQuestion);
+                    return playGame(GameProgression.getRules(), GameProgression::getQuestion);
                 case "6":
-                    return playGame(GamePrime::getRules, GamePrime::getQuestion);
-                default:
+                    return playGame(GamePrime.getRules(), GamePrime::getQuestion);
+                case "0":
                     return null;
+                default:
+                    closeScanner();
+                    throw new RuntimeException("Вы ввели некорректное значение!");
             }
         }
 
     }
     // Игра
-    private static boolean playGame(Supplier<String> rulesGetter,
+    private static boolean playGame(String rules,
                                     Supplier<String[]> questGetter) {
 
         nameUser = GameGreeting.run(IN);
 
-        System.out.println(rulesGetter.get());
-        int curWin = 0;
-        while (curWin < COUNT_WIN) {
+        System.out.println(rules);
 
+        for (int x = 0; x < COUNT_WIN; x++) {
             String[] questionAndAnswer = questGetter.get();
             String question = questionAndAnswer[0];
             String correctAnswer = questionAndAnswer[1];
@@ -74,7 +76,6 @@ public final class Engine {
 
             if (correctAnswer.equals(answer)) {
                 System.out.println("Correct!");
-                curWin++;
             } else {
                 System.out.println("'" + answer +  "' is wrong answer ;(. Correct answer was '"
                         + correctAnswer + "'.");
@@ -91,5 +92,10 @@ public final class Engine {
             String result = win ? "Congratulations, " + nameUser + "!" : ("Let's try again, " + nameUser + "!");
             System.out.println(result);
         }
+        closeScanner();
+    }
+
+    private static void closeScanner() {
+            IN.close();
     }
 }
